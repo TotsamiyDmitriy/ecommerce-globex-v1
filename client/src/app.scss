@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Libre Baskerville', serif;
+  color: #272727;
+}
+body {
+  background: #f5f5f5;
+  &.disabled {
+    overflow: hidden;
+  }
+}
+
+.App {
+  overflow-x: hidden;
+}
+
+#notistack-snackbar {
+  color: #f5f5f5 !important;
+  svg {
+    fill: #f5f5f5 !important;
+  }
+}
+
+#modalBtnClose {
+  background-color: #118817;
+  padding: 5% 20px;
+  border: #0e7713 1px solid;
+  border-radius: 10px;
+  color: #ffffff;
+  transition: 1s all;
+  &:hover {
+    transition: 1s all;
+    background-color: #0e7713;
+  }
+}

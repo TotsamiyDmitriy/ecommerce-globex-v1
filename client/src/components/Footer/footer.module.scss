@@ -1,0 +1,124 @@
+.root {
+  margin-top: 80px;
+  padding: 0 20px;
+  background-color: #00071b;
+  .logo {
+    padding: 36px 50px 36px 50px;
+    color: #ffffff;
+    font-size: 64px;
+    svg {
+      max-width: 76px;
+      width: 100%;
+      padding: 0 20px;
+    }
+  }
+  .container {
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1560px;
+    margin: 0 auto;
+    color: #ffffff;
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0 40px;
+      .list {
+        list-style: none;
+        .element {
+          font-size: 18px;
+          margin-bottom: 18px;
+          color: #ffffff;
+          &:first-child {
+            font-weight: 900;
+          }
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+    .contact {
+      .contactTitle {
+        font-size: 24px;
+        font-weight: 900;
+        color: #ffffff;
+        margin-bottom: 16px;
+      }
+      .contactDescription {
+        color: #ffffff;
+        margin-bottom: 16px;
+      }
+      .contactInput {
+        display: flex;
+        border: 1px solid #fff;
+        border-radius: 8px;
+        .button {
+          cursor: pointer;
+          border: none;
+        }
+        .input {
+          outline: none;
+          color: #fff;
+          font-size: 18px;
+          width: 100%;
+          height: 52px;
+          border: none;
+          border-radius: 8px;
+          background: #00071b;
+          &::placeholder {
+            color: #ababab;
+            left: 50px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1439px) {
+  .root {
+    padding: 0;
+    .container {
+      flex-direction: column-reverse !important;
+      height: 100%;
+      .navigation {
+        width: 90%;
+        margin: 0 auto !important;
+        .list {
+          width: auto;
+          .element {
+            font-size: 16px;
+          }
+        }
+      }
+      .contact {
+        text-align: center;
+        width: 70%;
+        margin: 20px auto;
+        margin-bottom: 100px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 560px) {
+  .logo {
+    display: flex;
+    justify-content: center;
+    font-size: calc(36px + 50 * ((100vw - 320px) / (1280 - 320))) !important;
+    .svg {
+      max-width: 56px !important;
+      width: 100%;
+      padding: 0 20px;
+    }
+  }
+  .navigation {
+    display: none !important;
+  }
+  .contact {
+    margin-bottom: 20px !important;
+  }
+}

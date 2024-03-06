@@ -1,0 +1,123 @@
+// Styles for text input element
+.main {
+  max-width: 380px;
+  .text {
+    position: relative;
+
+    width: 100%;
+    .input {
+      padding: 0 16px;
+      width: 100%;
+      height: 54px;
+      box-sizing: border-box;
+      line-height: 54px;
+      font-size: 16px;
+      border: 1px solid #d0cfcf;
+      background: none;
+
+      outline: none;
+      border-radius: 4px;
+      appearance: none;
+      &.error {
+        border: 2px solid #cb3d40;
+      }
+
+      &:focus,
+      &:valid {
+        &.error ~ .label {
+          color: #cb3d40;
+        }
+        & ~ .label {
+          padding: 0 4px;
+          background-color: #f8f8f8;
+          color: #7e7e7e;
+          transform: translateY(-36px);
+          font-size: 12px;
+          cursor: default;
+        }
+      }
+    }
+    .label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 16px;
+      height: 20px;
+      line-height: 20px;
+      color: #7e7e7e;
+      cursor: text;
+      transition: all 200ms ease-out;
+      z-index: 10;
+    }
+  }
+  .errormsg {
+    height: 14px;
+    padding-left: 16px;
+    color: #cb3d40;
+    line-height: 14px;
+    font-size: 12px;
+  }
+
+  // Styles for radio input element
+
+  .radio {
+    display: flex;
+    align-items: center;
+    .input {
+      margin: 0;
+      margin-right: 12px;
+      &[type='radio'] {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .label {
+      font-size: 16px;
+      line-height: 26px;
+      color: #000;
+    }
+  }
+  // Styles for file input element
+
+  .file {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    max-width: 380px;
+
+    border: #d0cfcf 1px solid;
+    border-radius: 4px;
+    .input {
+      display: none;
+    }
+    &.error {
+      border: #cb3d40 2px solid;
+      border-left: none;
+      & > .label {
+        border: #cb3d40 2px solid;
+      }
+    }
+    .label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      height: 100%;
+      padding: 0 14px;
+      font-size: 16px;
+      line-height: 26px;
+      color: #000;
+      border: #000 1px solid;
+      border-radius: 4px 0 0 4px;
+    }
+    .fileName {
+      font-size: 16px;
+      line-height: 26px;
+      width: 100%;
+      padding: 0 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

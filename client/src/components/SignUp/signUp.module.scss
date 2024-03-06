@@ -1,0 +1,108 @@
+.form {
+  .title {
+    padding-bottom: 20px;
+  }
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .wrapper {
+      .case {
+        position: relative;
+
+        width: 100%;
+        .input {
+          padding: 0 16px;
+          width: 100%;
+          height: 54px;
+          box-sizing: border-box;
+          line-height: 54px;
+          font-size: 16px;
+          border: 1px solid #d0cfcf;
+          background: none;
+
+          outline: none;
+          border-radius: 4px;
+          appearance: none;
+          &.error {
+            border: 2px solid #cb3d40;
+          }
+
+          &:focus,
+          &:valid {
+            &.error ~ .label {
+              color: #cb3d40;
+            }
+            & ~ .label {
+              padding: 0 4px;
+              background-color: #fff;
+              color: #7e7e7e;
+              transform: translateY(-36px);
+              font-size: 12px;
+              cursor: default;
+            }
+          }
+        }
+        .label {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 16px;
+          height: 20px;
+          line-height: 20px;
+          color: #7e7e7e;
+          cursor: text;
+          transition: all 200ms ease-out;
+          z-index: 10;
+          &.error {
+            color: #cb3d40;
+          }
+        }
+      }
+      .errormsg {
+        padding: 4px 0;
+        padding-left: 16px;
+        color: #cb3d40;
+
+        line-height: 14px;
+        font-size: 12px;
+      }
+    }
+    .submit {
+      margin-top: 20px;
+    }
+    .submit,
+    .google {
+      height: 35px;
+
+      border: none;
+      border-radius: 5px;
+      background-color: #00398f;
+      color: #fff;
+      transition: 0.2s all;
+      cursor: pointer;
+      &:hover {
+        transition: 0.2s all;
+        background-color: #002c6d;
+        color: #fff;
+      }
+    }
+    .google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border: #7e7e7e 1px solid;
+      margin-bottom: 20px;
+    }
+  }
+  .register {
+    margin-top: 10px;
+    span {
+      margin-left: 20px;
+      color: #00398f;
+      cursor: pointer;
+      text-decoration-line: underline;
+    }
+  }
+}

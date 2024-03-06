@@ -1,0 +1,19 @@
+.main {
+  background-color: #f0f0f0;
+  padding: 4px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 8px;
+
+  .buttonX {
+    .XMark {
+      width: 22px;
+      height: 22px;
+      stroke: #848484;
+      color: #848484;
+    }
+  }
+}
