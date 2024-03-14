@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './signIn.module.scss';
 import { Box } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import axios, { AxiosError } from 'axios';
+import { UserType } from '../../types/mainTypes';
+import { setCurrentUser } from '../../redux/authSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 const style = {
   position: 'absolute',
@@ -20,10 +24,11 @@ interface SignProps {
 }
 
 type FormData = {
+  name: string;
   email: string;
   password: string;
+  password2: string;
 };
-
 const SignIn = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, ref) => {
   const {
     register,
@@ -31,8 +36,29 @@ const SignIn = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
     handleSubmit,
   } = useForm<FormData>();
 
+  const [error, setError] = useState<string>();
+
+  const dispatch = useAppDispatch();
+
   const onSumbit: SubmitHandler<FormData> = async (data, e) => {
     e?.preventDefault();
+    const formData = {
+      username: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    try {
+      const { data } = await axios.post<UserType>('/api/auth/signin', {
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log(data);
+      dispatch(setCurrentUser(data));
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error.response?.data.message);
+      }
+    }
   };
 
   return (
@@ -77,6 +103,7 @@ const SignIn = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
             </div>
             <p className={styles.errormsg}>{errors.password && errors.password.message}</p>
           </div>
+          <p className={styles.error}>{error ? error : ''}</p>
           <button className={styles.submit} type="submit">
             Sign In
           </button>

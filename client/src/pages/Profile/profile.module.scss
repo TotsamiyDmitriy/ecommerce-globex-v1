@@ -1,0 +1,17 @@
+.profile {
+  .person {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    .image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .accountWrapper {
+    }
+  }
+}

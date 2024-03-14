@@ -1,10 +1,20 @@
 import React from 'react';
-import { useAppSelector } from '../redux/hooks';
-import { Outlet, Navigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { Outlet } from 'react-router-dom';
+import { setSignModal } from '../redux/authSlice';
 
-const PrivateRoute: React.FC<unknown> = () => {
-  const { currentUser } = useAppSelector(({ auth }) => auth);
-  return currentUser ? <Outlet /> : <Navigate to={'/sign-in'} />;
+const PrivateRoute: React.FC = () => {
+  const { currentUser, signModal } = useAppSelector(({ auth }) => auth);
+
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    if (!currentUser) {
+      dispatch(setSignModal(true));
+    }
+  }, [currentUser, signModal]);
+
+  return currentUser ? <Outlet /> : <p></p>;
 };
 
 export default PrivateRoute;

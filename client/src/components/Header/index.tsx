@@ -7,11 +7,10 @@ import { setSearch } from '../../redux/productSlice';
 import axios, { AxiosError } from 'axios';
 import { ProductType } from '../../types/mainTypes';
 import { AxiosErrorResponce } from '../../types/axios';
-import { SearchElement } from '..';
+import { SearchElement, SignModal } from '..';
 import { setSignModal } from '../../redux/authSlice';
-import { Fade, Modal } from '@mui/material';
-import SignIn from '../SignIn';
-import SingUp from '../SignUp';
+
+import { Profile } from '../../pages';
 
 const categories: string[] = ['Men', 'Women', 'Kids'];
 
@@ -20,14 +19,11 @@ const Header: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
-  const [typeModal, setTypeModal] = useState(false);
-
   const [searchProducts, setSearchProducts] = useState<ProductType[]>();
 
-  const { currentUser, search, signModalActive } = useAppSelector((state) => ({
+  const { currentUser, search } = useAppSelector((state) => ({
     currentUser: state.auth.currentUser,
     search: state.product.search,
-    signModalActive: state.auth.signModal,
   }));
 
   const dispatch = useAppDispatch();
@@ -61,22 +57,9 @@ const Header: React.FC = () => {
     dispatch(setSearch(''));
   };
 
-  const handleClose = () => {
-    dispatch(setSignModal(false));
-    setTypeModal(false);
-  };
-
   return (
     <div className={styles.header}>
-      <Modal open={signModalActive} onClose={handleClose}>
-        <Fade in={signModalActive}>
-          {typeModal === false ? (
-            <SignIn setTypeModal={setTypeModal} />
-          ) : (
-            <SingUp setTypeModal={setTypeModal} />
-          )}
-        </Fade>
-      </Modal>
+      <SignModal />
       <div className={styles.container}>
         <nav className={styles.navigation}>
           <NavLink className={styles.logo} to={'/'}>
@@ -229,7 +212,7 @@ const Header: React.FC = () => {
 
           <div className={styles.profile}>
             {currentUser ? (
-              <div className=""></div>
+              <Profile />
             ) : (
               <div
                 className={styles.signIn}

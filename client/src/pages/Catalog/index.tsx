@@ -9,7 +9,7 @@ import { LinearProgress } from '@mui/material/';
 import { Filter } from '../../components';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { Sort, clearAll, setSortBy } from '../../redux/productSlice';
+import { Sort, setSortBy } from '../../redux/productSlice';
 
 const sortType: Sort[] = [
   { title: 'Popularity', request: 'toprated' },
@@ -26,7 +26,7 @@ const Catalog = () => {
   const [filterIsActive, setFilterIsActive] = useState(false);
   const [sortIsActive, setSortIsActive] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _setSearchParams] = useSearchParams();
   const { id } = useParams();
 
   const { sortBy } = useAppSelector((state) => state.product);
@@ -64,10 +64,6 @@ const Catalog = () => {
     };
     fetchProducts();
   }, [location, searchParams]);
-
-  React.useEffect(() => {
-    dispatch(clearAll());
-  }, [id, location]);
 
   return (
     <div className={styles.main}>

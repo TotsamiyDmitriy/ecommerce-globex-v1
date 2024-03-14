@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import styles from './signUp.module.scss';
 import { Box } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import axios, { Axios, AxiosResponse, ResponseType } from 'axios';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import axios, { AxiosError } from 'axios';
 import { useAppDispatch } from '../../redux/hooks';
 import { UserType } from '../../types/mainTypes';
 import { setCurrentUser } from '../../redux/authSlice';
+import { app } from '../../utils/firebase';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -30,7 +32,8 @@ type FormData = {
 };
 
 const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, ref) => {
-  const [passError, SetPassError] = useState<string | undefined>();
+  const [passError, setPassError] = useState<string | undefined>();
+  const [error, setError] = useState<string | undefined>();
 
   const dispatch = useAppDispatch();
 
@@ -49,19 +52,46 @@ const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
           email: data.email,
           password: data.password,
         };
-        const UpRes = await axios.post('/api/auth/signup', formData);
-        console.log(UpRes);
-        const InRes = await axios.post<AxiosResponse<UserType>>('api/auth/signin', {
+        await axios.post('/api/auth/signup', formData);
+
+        const OutputData = await axios.post<UserType>('/api/auth/signin', {
           email: formData.email,
           password: formData.password,
         });
-        console.log(InRes);
-        dispatch(setCurrentUser(InRes.data.data));
+
+        dispatch(setCurrentUser(OutputData.data));
       } catch (error) {
-        console.log(error);
+        if (error instanceof AxiosError) {
+          setError(error.response?.data.message);
+        }
       }
     } else {
-      SetPassError('Password must be equal');
+      setPassError('Password must be equal');
+    }
+  };
+
+  const googleHandler: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+    try {
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth(app);
+
+      const { user } = await signInWithPopup(auth, provider);
+
+      const userData = {
+        username: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+      };
+
+      const { data } = await axios.post<UserType>('/api/auth/google', userData);
+      dispatch(setCurrentUser(data));
+      console.log(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error.message);
+      }
+      console.log(error);
     }
   };
 
@@ -75,7 +105,7 @@ const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
           <div className={styles.wrapper}>
             <div className={styles.case}>
               <input
-                className={`${styles.input} ${errors.name ? errors.name.message : ''}`}
+                className={`${styles.input} ${errors.name ? styles.error : ''}`}
                 {...register('name', { required: 'Username is required' })}
                 id="name"
                 type="text"
@@ -90,7 +120,7 @@ const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
           <div className={styles.wrapper}>
             <div className={styles.case}>
               <input
-                className={`${styles.input} ${errors.email ? errors.email.message : ''}`}
+                className={`${styles.input} ${errors.email ? styles.error : ''}`}
                 {...register('email', { required: 'Email is required' })}
                 id="email"
                 type="text"
@@ -102,11 +132,10 @@ const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
             </div>{' '}
             <p className={styles.errormsg}>{errors.email && errors.email.message}</p>
           </div>
-
           <div className={styles.wrapper}>
             <div className={styles.case}>
               <input
-                className={`${styles.input} ${errors.password ? errors.password.message : ''}`}
+                className={`${styles.input} ${errors.password || passError ? styles.error : ''}`}
                 {...register('password', { required: 'Password is required' })}
                 id="password"
                 type="password"
@@ -124,7 +153,7 @@ const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
           <div className={styles.wrapper}>
             <div className={styles.case}>
               <input
-                className={`${styles.input} ${errors.password ? errors.password.message : ''}`}
+                className={`${styles.input} ${errors.password || passError ? styles.error : ''}`}
                 {...register('password2', { required: 'Password is required' })}
                 id="password2"
                 type="password"
@@ -142,10 +171,11 @@ const SingUp = React.forwardRef<React.Ref<HTMLDivElement>, SignProps>((props, re
                 : ''}
             </p>
           </div>
+          <p className={styles.error}>{error ? error : ''}</p>
           <button className={styles.submit} type="submit">
             Register
           </button>
-          <button className={styles.google}>
+          <button className={styles.google} onClick={googleHandler} type="button">
             <svg
               width="25"
               height="24"
