@@ -21,7 +21,7 @@ export const authSlice = createSlice({
 	name : 'authReducer',
 	initialState,
 	reducers : {
-		setCurrentUser : (state, action:PayloadAction<UserType>)=> {
+		setCurrentUser : (state, action:PayloadAction<UserType | undefined>)=> {
 			state.currentUser = action.payload
 			state.signModal = false
 		},

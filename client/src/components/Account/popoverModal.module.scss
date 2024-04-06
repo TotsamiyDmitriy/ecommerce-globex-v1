@@ -1,0 +1,57 @@
+.main {
+  padding: 10px;
+  .container {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+    .avatar {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .information {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      .username {
+      }
+    }
+    .status {
+      width: 100%;
+      white-space: nowrap;
+      .admin,
+      .author,
+      .consumer {
+        font-weight: 700;
+      }
+      .admin {
+        color: rgb(240, 72, 72);
+      }
+      .author {
+        color: rgb(0, 155, 0);
+      }
+      .consumer {
+        color: #888888;
+      }
+      .contact {
+        color: #a1a1a1;
+
+        font-size: 12px;
+      }
+    }
+    .signOut {
+      cursor: pointer;
+      width: 100%;
+      background-color: rgb(207, 0, 0);
+      color: #fff;
+      padding: 5px 0;
+      border-radius: 5px;
+      border: 1px solid rgb(167, 0, 0);
+    }
+  }
+}

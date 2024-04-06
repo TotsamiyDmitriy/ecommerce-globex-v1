@@ -9,8 +9,7 @@ import { ProductType } from '../../types/mainTypes';
 import { AxiosErrorResponce } from '../../types/axios';
 import { SearchElement, SignModal } from '..';
 import { setSignModal } from '../../redux/authSlice';
-
-import { Profile } from '../../pages';
+import Account from '../Account';
 
 const categories: string[] = ['Men', 'Women', 'Kids'];
 
@@ -212,7 +211,7 @@ const Header: React.FC = () => {
 
           <div className={styles.profile}>
             {currentUser ? (
-              <Profile />
+              <Account />
             ) : (
               <div
                 className={styles.signIn}
