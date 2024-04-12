@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { About, Catalog, Home, Product, Profile, Cart } from './pages';
+import { About, Catalog, Home, Product, Profile, Cart, Wishlist } from './pages';
 import { Provider } from 'react-redux';
 import { persistor, store } from './redux/store';
 import Header from './components/Header';
@@ -22,6 +22,7 @@ const App = () => {
             <Route path="/about-us" element={<About />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:id" element={<Product />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<Profile />} />
             </Route>

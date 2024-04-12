@@ -16,6 +16,7 @@ export const verifyToken = (req, res, next) => {
 
 export const verifyIsAuthor = async (req, res, next) => {
   const user = await User.findById(req.user.id);
+  if (!user) return next(errorHandler(404, 'User not found!'));
   if (user.isAuthor === false) {
     return next(errorHandler(403, 'Forbidden, you are not Author'));
   }

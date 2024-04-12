@@ -74,7 +74,15 @@
           }
         }
       }
+
       .profile {
+        .controller {
+          display: flex;
+          gap: 30px;
+        }
+        display: flex;
+        gap: 40px;
+        align-items: center;
         white-space: nowrap;
       }
     }

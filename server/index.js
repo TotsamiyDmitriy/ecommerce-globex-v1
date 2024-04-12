@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import productRouter from './routes/product.route.js';
+import wishlistRouter from './routes/wishlist.route.js';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/product', productRouter);
+app.use('/api/wishlist', wishlistRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

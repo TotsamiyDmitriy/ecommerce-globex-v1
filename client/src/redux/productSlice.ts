@@ -20,7 +20,8 @@ type FilterState = {
 		priceRange?: string;
 	},
 	priceRange: number[];
-	sortBy : Sort
+	sortBy : Sort;
+	wishlist_id: string | undefined;
 }
 
 
@@ -42,7 +43,8 @@ const initialState:FilterState = {
 	},
 	search : '',
 	priceRange: [],
-	sortBy: { title: 'Popularity', request: "toprated" }
+	sortBy: { title: 'Popularity', request: "toprated" },
+	wishlist_id : undefined,
 }
 
 export const productSlice = createSlice({
@@ -104,7 +106,9 @@ export const productSlice = createSlice({
 	deleteAllTags : (state) => {
 		state.tags = initialState.tags
 	},
-		
+	setWishlist : (state, action:PayloadAction<string>) => {
+		state.wishlist_id = action.payload
+	}
 	},
 	/*extraReducers : (builder) => {
 		builder.addCase(fetchFilters.pending, (state) => {
@@ -123,6 +127,6 @@ export const productSlice = createSlice({
 
 
 
-export const {setFiltersState, setPriceRange, setSearch, clearAll, addTag, deleteTag, deleteByTag,deleteAllTags, setSortBy} = productSlice.actions
+export const {setFiltersState, setPriceRange, setSearch, clearAll, addTag, deleteTag, deleteByTag,deleteAllTags, setSortBy, setWishlist} = productSlice.actions
 
 export default productSlice.reducer
